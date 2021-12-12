@@ -3,6 +3,7 @@ Module 15 R: Statistics and R for MechaCar
 ## Linear Regression to Predict MPG
 
 This is the summary statistics of the linear regression performed.
+
 <img width="533" alt="D1-Summary" src="https://user-images.githubusercontent.com/87828174/145723431-4dcbcd60-e9fc-426a-8b4b-51c2fe0d3f7b.png">
 
 ### Which variables/coefficients provided a non-random amount of variance to the mpg values in the dataset?
