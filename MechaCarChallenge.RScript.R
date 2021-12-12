@@ -12,4 +12,17 @@ MechaCar_df <- read.csv(file='MechaCar_mpg.csv',check.names=F,stringsAsFactors =
 lm(mpg~vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD,data=MechaCar_df) #generate multiple linear regression model
 summary(lm(mpg~vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD,data=MechaCar_df))
 
+# Deliverable 2
+# read csv
+SuspensionCoil_df <- read.csv(file='Suspension_Coil.csv',check.names=F,stringsAsFactors = F) # reading csv files
+
+# summary
+total_summary <- summarize(SuspensionCoil_df, Mean = mean(PSI), Median = median(PSI), Variance = var(PSI), SD = sd(PSI))
+head(total_summary)
+
+# group each manufacturing lot by the mean, median, variance, and standard deviation of the suspension coil’s PSI column
+lot_summary <- SuspensionCoil_df %>% group_by(Manufacturing_Lot) %>%
+  summarise(Mean = mean(PSI), Median = median(PSI), Variance = var(PSI), SD = sd(PSI))
+head(lot_summary)
+
 
