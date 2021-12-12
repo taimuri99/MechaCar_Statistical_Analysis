@@ -25,4 +25,24 @@ lot_summary <- SuspensionCoil_df %>% group_by(Manufacturing_Lot) %>%
   summarise(Mean = mean(PSI), Median = median(PSI), Variance = var(PSI), SD = sd(PSI))
 head(lot_summary)
 
+# Deliverable 3
+# manufacturing lots and each lot individually are statistically different from the population mean of 1,500 pounds per square inch
+
+# PSI across all manufacturing lots is statistically different from the population mean of 1,500 pounds per square inch
+t.test(SuspensionCoil_df$PSI, mu = 1500)
+
+# t test for individual lot1
+lot1 <- subset(SuspensionCoil_df, Manufacturing_Lot=='Lot1')
+t.test(lot1$PSI, mu = 1500)
+
+# t test for individual lot2
+lot2 <- subset(SuspensionCoil_df, Manufacturing_Lot=='Lot2')
+t.test(lot2$PSI, mu = 1500)
+
+# t test for individual lot3
+lot3 <- subset(SuspensionCoil_df, Manufacturing_Lot=='Lot3')
+t.test(lot3$PSI, mu = 1500)
+
+
+
 
