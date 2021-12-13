@@ -91,7 +91,7 @@ Foe each metric we will perform each hypothesis testing to see its performance c
 
 ### What statistical test would you use to test the hypothesis? And why?
 
-We will use the Anova test which is a generalisation of the Two-Sample t-Test beyond two datasets. The Anova test will be used to test the means of different sample groups to see if they are statistically similar or dissimilar. Our aim is to see if datasets of different car types for different metrics are dissimilar. If they are dissimlar, are they better or worse? This would allow us to individually see the performance of our key metrics or key factors for user popularity compared to the competition in the automotive industry.
+We will use the Anova test which is a generalisation of the Two-Sample t-Test beyond two datasets. The Anova test will be used to test the means of different sample groups to see if they are statistically similar or dissimilar. Our aim is to see if datasets for different metrics are dissimilar. If they are dissimilar, are they better or worse? This would allow us to individually see the performance of our key metrics or key factors for user popularity compared to the competition in the automotive industry. These comparisons can also be plotted for more visual aid.
 
 ### What data is needed to run the statistical test?
 
