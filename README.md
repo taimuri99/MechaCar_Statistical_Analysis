@@ -86,15 +86,15 @@ Although there are many metrics that can be tested as they represent conditions 
 
 Foe each metric we will perform each hypothesis testing to see its performance compared to the competitors.
 
-- The null hypothesis is that MechaCar has better metric performance than its competitors.
-- The alternative hypothesis is that MechaCar does not have better metric performance than its competitors.
+- The null hypothesis is that MechaCar has the same metric performance as its competitors.
+- The alternative hypothesis is that MechaCar does not have the same metric performance as its competitors and has better or worse performance.
 
 ### What statistical test would you use to test the hypothesis? And why?
 
-We will use the Anova test which is a generalisation of the Two-Sample t-Test beyond two datasets. The Anova test will be used to test the means of different sample groups to see if they are statistically similar or dissimilar. Our aim is to see if datasets of different car types for different metrics are if dissimilar, are better or worse. This would allow us to individually see the performance of our key metrics or key factors for user popularity as compared to the competition in the automotive industry.
+We will use the Anova test which is a generalisation of the Two-Sample t-Test beyond two datasets. The Anova test will be used to test the means of different sample groups to see if they are statistically similar or dissimilar. Our aim is to see if datasets of different car types for different metrics are dissimilar. If they are dissimlar, are they better or worse? This would allow us to individually see the performance of our key metrics or key factors for user popularity compared to the competition in the automotive industry.
 
 ### What data is needed to run the statistical test?
 
-We would need datasets for different types of cars for all metrics as mentioned for testing from different competitors. These datasets would then be compared using Anova.
+We would need datasets for different types of cars for all metrics for testing, from different competitors. These datasets would then be compared using Anova.
 
 
