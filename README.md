@@ -84,7 +84,7 @@ Although there are many metrics that can be tested as they represent conditions 
 
 ### What is the null hypothesis or alternative hypothesis?
 
-Foe each metric we will perform each hypothesis testing to see its performance compared to the competitors.
+For each metric we will perform each metric's hypothesis testing to see its performance compared to the competitors.
 
 - The null hypothesis is that MechaCar has the same metric performance as its competitors.
 - The alternative hypothesis is that MechaCar does not have the same metric performance as its competitors and has better or worse performance.
