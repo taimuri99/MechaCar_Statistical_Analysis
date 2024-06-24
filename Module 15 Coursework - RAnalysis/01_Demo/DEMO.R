@@ -480,4 +480,33 @@ plt <- ggplot(mtcars,aes(x=hp,y=qsec)) #import dataset into ggplot2
 plt + geom_point() + geom_line(aes(y=yvals), color = "red") #plot scatter and linear model
 
 #Multiple Linear Regression
+#y = m1x1 + m2x2 + … + mnxn + b, m are ce and xn are independent var
+lm(qsec ~ mpg + disp + drat + wt + hp,data=mtcars) #generate multiple linear regression model
+summary(lm(qsec ~ mpg + disp + drat + wt + hp,data=mtcars)) #generate summary statistics
+#Pr(>|t|) value represents the probability that each coefficient contributes a random amount of variance to the linear model
+
+#Category Complexities
+#hi-squared test is used to compare the distribution of frequencies across two groups and tests the following hypotheses:
+#H0 : There is no difference in frequency distribution between both groups.
+#Ha : There is a difference in frequency distribution between both groups
+
+# Each subject within a group contributes to only one frequency. In other words, the sum of all frequencies equals the total number of subjects in a dataset.
+# Each unique value has an equal probability of being observed.
+# There is a minimum of five observed instances for every unique value for a 2x2 chi-squared table.
+# For a larger chi-squared table, there is at least one observation for every unique value and at least 80% of all unique values have five or more observations.
+
+?chisq.test()
+#test whether there is a statistical difference in the distributions of vehicle class across 1999 and 2008 from our mpg dataset, we would first need to build our contingency table as follows:
+
+table(mpg$class,mpg$year) #generate contingency table
+
+tbl <- table(mpg$class,mpg$year) #generate contingency table
+chisq.test(tbl) #compare categorical distribution
+
+#practice A/B testing
+#randomized controlled experiment that uses a control (unchanged) and experimental (changed) group to test potential changes using a success metric
+
+#If the success metric is numerical and the sample size is small, a z-score summary statistic can be sufficient to compare the mean and variability of both groups.
+#If the success metric is numerical and the sample size is large, a two-sample t-test should be used to compare the distribution of both groups.
+#If the success metric is categorical, you may use a chi-squared test to compare the distribution of categorical values between both groups.
 
