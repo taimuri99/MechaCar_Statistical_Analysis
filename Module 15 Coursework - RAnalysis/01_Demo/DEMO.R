@@ -261,3 +261,67 @@ theme(axis.text.x=element_text(angle=45,hjust=1),legend.position = "none") + xla
 
 
 #STATISTISTICAL TESTS
+#tests, distributions, statistical analysis, head(), CLT
+
+#Normality Test
+#distribution of vehicle weights from the built-in mtcars dataset, our R code would be as follows:
+  
+ggplot(mtcars,aes(x=wt)) + geom_density() #visualize distribution using density plot
+#geom_density() function plots a numerical vector by creating buckets of similar values and calculating the density (number of bucket data points/total number of data points) for each bucket
+
+#Quant Tests for Normality
+#quantitative test for normality uses a statistical test to quantify the probability of whether or not the test data came from a normally distributed dataset.
+#Shapiro-Wilk test for normality
+?shapiro.test()
+shapiro.test(mtcars$wt)
+#p-value is greater than 0.05, the data is considered normally distributed
+
+#SKEW
+#asymmetrical distribution is commonly referred to as a skewed distribution
+#left skewed, or negative skewed, if the left tail is longer than the right
+#data is skewed left, from the center of the distribution curve, there is a higher probability that extreme negative values exist within our dataset. When this occurs, the mean may no longer accurately reflect the central tendency of the data. Instead, we would use the median to describe the central tendency of the data. This skew is called negative skewed
+
+# right skewed, or positive skewed, if the right tail is longer than the left
+#data is skewed right, from the center of the distribution curve, there is a higher probability that extreme positive values exist within our dataset. Once again, if this occurs, we would use the median to describe the central tendency of the data. This skew is called positive skewed.
+
+#Solution
+#add data points
+#resample or regenerate data
+#Transform our data values by normalization - log transform
+
+#Hypothesis Testing
+#the null hypothesis is also known as H0 and is generally the hypothesis that can be explained by random chance.
+#The alternate hypothesis is also known as Ha and is generally the hypothesis that is influenced by non-random events.
+
+
+# Generate a null hypothesis, its corresponding alternate hypothesis, and the significance level.
+# Identify a statistical analysis to assess the truth of the null hypothesis.
+# Compute the p-value using statistical analysis.
+# Compare p-value to the significance level.
+# Reject (or fail to reject) the null hypothesis and generate the conclusion.
+
+#compare the p-value against a significance level. A significance level (also denoted as alpha or ɑ) is a predetermined cutoff for our hypothesis test
+# sig level of 0.0N means N in 100 chance its wrong
+
+#one-tailed hypothesis is only describing one side of the distribution. One-tailed hypotheses use descriptions such as "x is greater than y" or "x is less than or equal to y."
+#Alternatively, two-tailed hypotheses describe both sides of the distribution and use descriptions such as "equal to" or "not equal to."
+
+#If our hypotheses and statistical test are both two-tailed, use the statistical test p-value as is.
+#If our hypotheses are one-tailed, but our statistical test is two-tailed, divide the statistical test p-value by 2.
+
+# pval < sig level reject bull hyp
+# pval > fail to reject null hyp
+
+#Errors in Hyp Testing
+#Type I error (also known as a false positive error)—an error in which we reject the null hypothesis when it is actually true. In other words, the observations and measurements used in our statistical test should have been attributed to random chance, but we attributed them to something else.
+#Type II error (also known as a false negative error)—an error in which we fail to reject the null hypothesis when it is actually false. In other words, our analysis demonstrates that the observations were due to random chance, but they were not. The observations and measurements used in our statistical test failed to reflect an external force or influence to our problem.
+
+#A type I error can be limited by making your significance level smaller. A smaller significance level makes it harder to accidentally reject the null hypothesis when the data was truly random. This is also why our significance level (alpha or ɑ) is sometimes referred to as our false positive rate.
+#A type II error can be limited by increasing the power of the analysis. Although performing a power analysis is outside the scope of the course, power can be increased by adding additional measurements or observations to our analysis.
+
+
+#SAMPLE VS POP
+
+
+
+
