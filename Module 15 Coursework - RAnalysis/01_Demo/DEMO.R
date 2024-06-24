@@ -321,7 +321,163 @@ shapiro.test(mtcars$wt)
 
 
 #SAMPLE VS POP
+#Random sampling is a technique in data science in which every subject or data point has an equal chance of being included in the sample
+# pop - all, sample - part
+#sample data from a numerical vector - sample() function
+#sample_n() function to select sample data from a two-dimensional data object
+?sample_n()
+#use a dplyr pipe (%>%) to provide the data frame object directly
+
+population_table <- read.csv('used_car_data.csv',check.names = F,stringsAsFactors = F) #import used car dataset
+plt <- ggplot(population_table,aes(x=log10(Miles_Driven))) #import dataset into ggplot2
+plt + geom_density() #visualize distribution using density plot
+#transform our miles driven using a log10 transformation
+
+#create sampled dataset
+sample_table <- population_table %>% sample_n(50) #randomly sample 50 data points
+plt <- ggplot(sample_table,aes(x=log10(Miles_Driven))) #import dataset into ggplot2
+plt + geom_density() #visualize distribution using density plot
+
+#1 sample t-test
+# students t test
+# H0 : There is no statistical difference between the observed sample mean and its presumed population mean.
+# Ha : There is a statistical difference between the observed sample mean and its presumed population mean.
+
+# requirements
+# The input data is numerical and continuous. This is because we are testing the distribution of two datasets.
+# The sample data was selected randomly from its population data.
+# The input data is considered to be normally distributed.
+# The sample size is reasonably large. Generally speaking, this means that the sample data distribution should be similar to its population data distribution.
+# The variance of the input data should be very similar.
+?t.test()
+
+#test if the miles driven from our previous sample dataset is statistically different from the miles driven in our population data
+  
+t.test(log10(sample_table$Miles_Driven),mu=mean(log10(population_table$Miles_Driven))) #compare sample versus population means
+
+# 2 sample t-test
+#two-sample t-Test determines whether the means of two samples are statistically different. In other words, a two-sample t-Test is used to test the following hypotheses:
+#H0 : There is no statistical difference between the two observed sample means.
+#Ha : There is a statistical difference between the two observed sample means.
+
+#Assumptions
+# The input data is numerical and continuous.
+# Each sample data was selected randomly from the population data.
+# The input data is considered to be normally distributed.
+# Each sample size is reasonably large. Generally speaking, this means that the sample data distribution should be similar to its population data distribution.
+# The variance of the input data should be very similar.
+# same t.test function but arguments different
 
 
+#mean miles driven of two samples from our used car dataset are statistically different.
+#create two samples
 
+sample_table <- population_table %>% sample_n(50) #generate 50 randomly sampled data points
+sample_table2 <- population_table %>% sample_n(50) #generate another 50 randomly sampled data points
+t.test(log10(sample_table$Miles_Driven),log10(sample_table2$Miles_Driven)) #compare means of two samples
+
+
+# 2 sample t-test compare samples
+#to compare two samples, each from a different population
+
+#pair t-test, 
+#because we pair observations in one dataset with observations in another.
+
+#EX
+#Comparing measurements on the same subjects across a single span of time (e.g., fuel efficiency before and after an oil change)
+#Comparing different methods of measurement (e.g., testing tire pressure using two different tire pressure gauges)
+
+#H0 : The difference between our paired observations (the true mean difference, or "μd") is equal to zero.
+#Ha : The difference between our paired observations (the true mean difference, or "μd") is not equal to zero.
+
+mpg_data <- read.csv('mpg_modified.csv') #import dataset
+mpg_1999 <- mpg_data %>% filter(year==1999) #select only data points where the year is 1999
+mpg_2008 <- mpg_data %>% filter(year==2008) #select only data points where the year is 2008
+
+#statistical difference in overall highway fuel efficiency between vehicles manufactured in 1999 versus 2008?
+
+t.test(mpg_1999$hwy,mpg_2008$hwy,paired = T) #compare the mean difference between two samples
+
+
+#ANOVA TEST
+#analysis of variance (ANOVA) test, which is used to compare the means of a continuous numerical variable across a number of groups
+#A one-way ANOVA is used to test the means of a single dependent variable across a single independent variable with multiple groups. (e.g., fuel efficiency of different cars based on vehicle class).
+#A two-way ANOVA does the same thing, but for two different independent variables (e.g., vehicle braking distance based on weather conditions and transmission type).
+
+#H0 : The means of all groups are equal, or µ1 = µ2 = … = µn.
+#Ha : At least one of the means is different from all other groups.
+
+# Conditions
+# The dependent variable is numerical and continuous, and the independent variables are categorical.
+# The dependent variable is considered to be normally distributed.
+# The variance among each group should be very similar.
+
+?aov()
+#all of the observations and grouping information are contained within a single data frame
+
+#"Is there any statistical difference in the horsepower of a vehicle based on its engine type?"
+#horsepower (the "hp" column) will be our dependent, measured variable
+#number of cylinders (the "cyl" column) will be our independent, categorical variable.
+
+#need categorical vector
+mtcars_filt <- mtcars[,c("hp","cyl")] #filter columns from mtcars dataset
+mtcars_filt$cyl <- factor(mtcars_filt$cyl) #convert numeric column to factor
+aov(hp ~ cyl,data=mtcars_filt) #compare means across multiple levels
+#get pvalue
+summary(aov(hp ~ cyl,data=mtcars_filt))
+
+
+#Correlation
+#relationship between variable A and variable B
+#Pearson correlation coefficient - r (-1 -> 0 -> +1)
+# r=1 ideal positive correlation , r= -1 ideal negative, r = 0 no correlation
+?cor()
+#x,y var
+head(mtcars)
+plt <- ggplot(mtcars,aes(x=hp,y=qsec)) #import dataset into ggplot2
+plt + geom_point() #create scatter plot
+#vehicle horsepower increases, vehicle quarter-mile time decreases
+cor(mtcars$hp,mtcars$qsec) #calculate correlation coefficient
+
+
+used_cars <- read.csv('used_car_data.csv',stringsAsFactors = F) #read in dataset
+head(used_cars)
+plt <- ggplot(used_cars,aes(x=Miles_Driven,y=Selling_Price)) #import dataset into ggplot2
+plt + geom_point() #create a scatter plot
+cor(used_cars$Miles_Driven,used_cars$Selling_Price) #calculate correlation coefficient
+#negligible correlation
+
+
+#correlation matrix is a lookup table where the variable names of a data frame are stored as rows and columns, and the intersection of each variable is the corresponding Pearson correlation coefficient
+used_matrix <- as.matrix(used_cars[,c("Selling_Price","Present_Price","Miles_Driven")]) #convert data frame into numeric matrix
+cor(used_matrix)
+
+
+#Linear Regression
+#y=mx+b
+# y - dep, x - indep
+#The job of a linear regression analysis is to calculate the slope and y intercept values (also known as coefficients) that minimize the overall distance between each data point from the linear model.
+#Simple linear regression builds a linear regression model with one independent variable.
+#Multiple linear regression builds a linear regression model with two or more independent variables.
+#linear regression asks if we can predict values for variable A using a linear model and values from variable B.
+#H0 : The slope of the linear model is zero, or m = 0
+#Ha : The slope of the linear model is not zero, or m ≠ 0
+#r-squared (r2) value is also known as the coefficient of determination
+# probability metric to determine the likelihood that future data points will fit the linear model.
+?lm()
+# The input data is numerical and continuous.
+# The input data should follow a linear pattern.
+# There is variability in the independent x variable. This means that there must be more than one observation in the x-axis and they must be different values.
+# The residual error (the distance from each data point to the line) should be normally distributed.
+
+lm(qsec ~ hp,mtcars) #create linear model
+summary(lm(qsec~hp,mtcars)) #summarize linear model
+
+
+model <- lm(qsec ~ hp,mtcars) #create linear model
+yvals <- model$coefficients['hp']*mtcars$hp + model$coefficients['(Intercept)'] #determine y-axis values from linear model
+plt <- ggplot(mtcars,aes(x=hp,y=qsec)) #import dataset into ggplot2
+plt + geom_point() + geom_line(aes(y=yvals), color = "red") #plot scatter and linear model
+
+#Multiple Linear Regression
 
